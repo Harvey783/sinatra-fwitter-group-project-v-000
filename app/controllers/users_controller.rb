@@ -18,6 +18,17 @@ class UsersController < ApplicationController
     end
   end
 
+#  post '/signup' do
+#    if !params.values.all? {|v| !v.blank?}
+#      # flash[:error] = "Uh oh! Something's not filled in..."
+#      redirect to '/signup'
+#    else
+#      @user = User.create(params)
+#      session[:user_id] = @user.id
+#      redirect to '/tweets'
+#    end
+#  end
+
   get '/login' do
     if is_logged_in?(session)
       redirect '/tweets'
@@ -28,6 +39,7 @@ class UsersController < ApplicationController
 
   post '/login' do
     user = User.find_by(:username => params[:username])
+#    user = User.find_by(username: params[:username])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
       redirect '/tweets'
